@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Ввод кода</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container mt-5">
+    {% if messages %}
+        <div class="text-center">
+            <div class="messages">
+            {% for message in messages %}
+                {% if message.tags == 'success' %}
+                <div class="{{ message.tags }}">{{ message|safe }}</div>
+                {% endif %}
+            {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="auth_code">Код подтверждения</label>
+            <input type="text" class="form-control" name="auth_code" id="auth_code" placeholder="Введите код">
+        </div>
+        <button type="submit" class="btn btn-primary">Отправить</button>
+    </form>
+</div>
+<div class="text-center">
+<div id="hidden-element" style="display: none;">
+    {% if messages %}
+        {% for message in messages %}
+            {% if message.tags == 'info' %}
+            <p>{{ message }}</p>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+</div>
+</div>
+
+<script>
+    function showDelayedElement() {
+        var element = document.getElementById("hidden-element");
+        element.style.display = "block";
+    }
+
+    setTimeout(showDelayedElement, 2000);
+</script>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
