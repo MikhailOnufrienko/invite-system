@@ -1,1 +1,50 @@
-PROFILE
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Профиль</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Профиль</h1>
+        <p><b>Номер вашего телефона: </b><span id="phoneNumber">{{ phone_number }}</span></p>
+        <p><b>Ваш инвайт-код: </b><span id="inviteCode">{{ invite_code }}</span></p>
+        <p><b>Активированный код: </b><span id="activatedCode">{% if activated_code %}{{ activated_code }}{% else %}Нет активированного кода{% endif %}</span></p>
+        <p><b>Пользователи, активировавшие ваш код: </b><span id="invitedUsers">{% if users_invited %}{{ users_invited }}{% else %}Ваш код пока никто не активировал{% endif %}</span></p>
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert-danger"><p>{{ message }}</p></div>
+        {% endfor %}
+        {% endif %}
+        <form method="post" id="inviteForm" class="mt-4" action="{% url 'user_auth:activate' id %}">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="inviteCode">Ввести инвайт-код от друга:</label>
+                <input type="text" class="form-control" id="inviteCode" name="inviteCode" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Активировать</button>
+        </form>
+    </div>
+
+    <div class="text-center">
+        <a href="#" onclick="logout()">Выйти из системы</a>
+    </div>
+      
+      
+    <form id="logoutForm" method="post" action="{% url 'user_auth:out' %}">
+        {% csrf_token %}
+    </form>
+
+    <script>
+        function logout() {
+          document.getElementById("logoutForm").submit();
+        }
+    </script>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.min.js"></script>
+
+</body>
+</html>
