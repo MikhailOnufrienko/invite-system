@@ -23,25 +23,25 @@
 4. Создайте .env-file из .env.example.
 5. Примените миграции: из директории "invite-system" выполните команду:
 
-     ```
-     python manage.py migrate
-     ```
+```
+    python manage.py migrate
+```
 
 6. Запустите отладочный сервер Django: из директории "invite-system" выполните команду:
    
-   ```
-     python manage.py runserver 127.0.0.1:8001
-   ```
+```
+    python manage.py runserver 127.0.0.1:8001
+```
 
 10. Браузерная версия:
 
-   ```
-   http://127.0.0.1:8001/auth/authorize/
-   ```
+```
+    http://127.0.0.1:8001/auth/authorize/
+```
 
 11. Краткое описание API-эндпоинтов:
    
-    ```
+```
    http://127.0.0.1:8001/api/v1/auth/authorize/
    POST, "Ввод номера телефона"
    schema: {"phone_number": string}
@@ -62,6 +62,6 @@
    http://127.0.0.1:8001/api/v1/auth/out/
    POST, "Выход из системы"
    Header: Authorization
-   ```
+```
 
 Коллекция Postman: https://api.postman.com/collections/24474482-45bf80a9-63a7-4f54-9e02-c511975ee5df?access_key=PMAT-01H7DBJDX6QGQSHW70J32YHKP0
