@@ -1,4 +1,5 @@
 import random
+import re
 import string
 
 from django.http import HttpRequest
@@ -9,6 +10,13 @@ from .models import UserProfile
 
 
 auth_code = ''
+
+
+def check_phone_number_valid(value: str) -> bool:
+    pattern = r'^\d{10}$'
+    if not re.match(pattern, value):
+        return False
+    return True
 
 
 def create_auth_code() -> str:

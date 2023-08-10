@@ -12,11 +12,15 @@ from .schemas import AuthorizeUser
 @require_http_methods(['GET', 'POST'])
 def authorize(request: HttpRequest) -> HttpResponse:
     if request.method == 'POST':
-        auth_code = service.create_auth_code()
-        messages.success(request, 'Введите полученный код авторизации.')
-        messages.info(request, auth_code)
         phone = request.POST.get('phoneInput')
-        return redirect('user_auth:confirm', phone=phone)
+        if service.check_phone_number_valid(phone):
+            auth_code = service.create_auth_code()
+            messages.success(request, 'Введите полученный код авторизации.')
+            messages.info(request, auth_code)
+            return redirect('user_auth:confirm', phone=phone)
+        error = 'Телефон должен состоять из 10 цифр без пробелов. Например: 9012005050.'
+        messages.error(request, error)
+        return redirect('user_auth:authorize')
     return render(request, 'authorize.html', status=200)
 
 

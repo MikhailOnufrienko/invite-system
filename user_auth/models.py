@@ -1,12 +1,9 @@
 from django.db import models
 
-from .validators import validate_phone_number
-
 
 class UserProfile(models.Model):
     phone_number = models.CharField(
-        verbose_name='Номер телефона', unique=True,
-        db_index=True, validators=[validate_phone_number]
+        verbose_name='Номер телефона', unique=True, db_index=True
     )
     invite_code = models.CharField(
         verbose_name='Личный инвайт-код пользователя', max_length=6, db_index=True
